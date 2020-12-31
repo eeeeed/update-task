@@ -105,10 +105,14 @@ func main() {
 			fmt.Println("exit: value of -v has to be like <image path>:<image version>")
 			return
 		}
-		for count := 0; count < len(latestContainerDef); count++ {
-			// log.Println("Current image: ", string(currentInputNewImageVersion))
-			if strings.Contains(*latestContainerDef[count].Image, currentInputNewImageVersionSplit[0]) {
-				latestContainerDef[count].Image = &inputImageVersions[index]
+		if len(latestContainerDef) == 1 {
+			latestContainerDef[0].Image = &inputImageVersions[0]
+		} else {
+			for count := 0; count < len(latestContainerDef); count++ {
+				// log.Println("Current image: ", string(currentInputNewImageVersion))
+				if strings.Contains(*latestContainerDef[count].Image, currentInputNewImageVersionSplit[0]) {
+					latestContainerDef[count].Image = &inputImageVersions[index]
+				}
 			}
 		}
 	}
